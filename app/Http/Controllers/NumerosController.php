@@ -32,6 +32,10 @@ class NumerosController extends Controller
             $json = json_decode(file_get_contents(resource_path('../storage/data/number.json')), true);
             $rand = rand(1000,9999);
             array_push($json,$rand);
+            while (array_search($rand, $json) !== false)
+            {
+                $rand = rand(1000,9999);
+            }
             $result = array('rand' => $rand, 'count' => count($json));
             $json = json_encode($json);
             file_put_contents(resource_path('../storage/data/number.json'), $json);
